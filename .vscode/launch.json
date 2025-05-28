@@ -1,44 +1,54 @@
 {
-    "configurations": [
-        {
-            "type": "java",
-            "name": "Spring Boot-UserServiceApplication<user-service>",
-            "request": "launch",
-            "cwd": "${workspaceFolder}",
-            "mainClass": "kr.co.bit.user_service.UserServiceApplication",
-            "projectName": "user-service",
-            "args": "",
-            "envFile": "${workspaceFolder}/.env"
-        },
-        {
-            "type": "java",
-            "name": "Spring Boot-OrderServiceApplication<order-service>",
-            "request": "launch",
-            "cwd": "${workspaceFolder}",
-            "mainClass": "kr.co.bit.order_service.OrderServiceApplication",
-            "projectName": "order-service",
-            "args": "",
-            "envFile": "${workspaceFolder}/.env"
-        },
-        {
-            "type": "java",
-            "name": "Spring Boot-AdminServiceApplication<admin-service>",
-            "request": "launch",
-            "cwd": "${workspaceFolder}",
-            "mainClass": "kr.co.bit.admin_service.AdminServiceApplication",
-            "projectName": "admin-service",
-            "args": "",
-            "envFile": "${workspaceFolder}/.env"
-        },
-        {
-            "type": "java",
-            "name": "Spring Boot-ConfigServerApplication<config-server>",
-            "request": "launch",
-            "cwd": "${workspaceFolder}",
-            "mainClass": "kr.co.bit.config_server.ConfigServerApplication",
-            "projectName": "config-server",
-            "args": "",
-            "envFile": "${workspaceFolder}/.env"
-        }
-    ]
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Spring Boot-UserServiceApplication<user-service>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "kr.co.bit.user_service.UserServiceApplication",
+      "projectName": "user-service",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env"
+    },
+    {
+      "type": "java",
+      "name": "Spring Boot-OrderServiceApplication<order-service>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "kr.co.bit.order_service.OrderServiceApplication",
+      "projectName": "order-service",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env"
+    },
+    {
+      "type": "java",
+      "name": "Spring Boot-AdminServiceApplication<admin-service>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "kr.co.bit.admin_service.AdminServiceApplication",
+      "projectName": "admin-service",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env"
+    },
+    {
+      "type": "java",
+      "name": "Spring Boot-ConfigServerApplication<config-server>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "kr.co.bit.config_server.ConfigServerApplication",
+      "projectName": "config-server",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env"
+    },
+    {
+      "type": "java",
+      "name": "Spring Boot-EurekaServerApplication<eureka-server>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "kr.co.bit.eureka_server.EurekaServerApplication",
+      "projectName": "eureka-server",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env"
+    }
+  ]
 }
