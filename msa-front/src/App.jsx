@@ -7,7 +7,7 @@ import User from "./user-service/User";
 import NotFound from "./user-service/NotFound";
 import Order from "./order-service/Order";
 import Admin from "./admin-service/Admin";
-
+import Logout from "./user-service/Logout";
 function App() {
   return (
     <>
@@ -21,10 +21,10 @@ function App() {
           <Route path="*" element={<NotFound />}></Route>
           <Route path="/order" element={<Order />}></Route>
           <Route path="/admin" element={<Admin />}></Route>
+          <Route path="/logout" element={<Logout />}></Route>
         </Routes>
       </BrowserRouter>
     </>
   );
 }
-
 export default App;

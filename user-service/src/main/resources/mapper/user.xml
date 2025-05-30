@@ -5,5 +5,12 @@
 <mapper namespace="kr.co.bit.user_service.service.UserMapper">
     <select id="getUser" resultType="kr.co.bit.user_service.model.User" parameterType="String">
         select * from msa_user where id=#{id}
-    </select>	
+    </select>
+    <insert id="insertUser" parameterType="kr.co.bit.user_service.model.User">
+        insert into msa_user (id, passwd, name, tel, role )
+        values (#{id}, #{passwd}, #{name}, #{tel, jdbcType=VARCHAR}, #{role})
+    </insert>
+    <select id="existsUserById" parameterType="String" resultType="int" >
+        select count(*) from msa_user where id=#{id}
+    </select>
 </mapper>
