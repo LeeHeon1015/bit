@@ -12,10 +12,16 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.UnsupportedJwtException;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import io.jsonwebtoken.security.SignatureException;
+
 import kr.co.bit.user_service.model.User;
 
 @Component
@@ -54,4 +60,32 @@ public class JwtTokenProvider {
             .signWith( key, SignatureAlgorithm.HS512 )
             .compact();
     }
+    // 토큰에서 사용자 ID 추출
+    public String getUserIdFromJWT( String token ) {
+        Claims claims = Jwts.parserBuilder()
+            .setSigningKey( key )
+            .build()
+            .parseClaimsJws( token )
+            .getBody();
+        return claims.getSubject();
+    }
+    // 토근의 유효성 검증
+    public boolean validateToken( String authToken ) {
+        try {
+            Jwts.parserBuilder().setSigningKey( key ).build().parseClaimsJws( authToken );
+            return true;
+        } catch( SignatureException e ) {
+            logger.error( "유요하지 않는 JWT 서명입니다" );    
+        } catch( MalformedJwtException e ) {
+            logger.error( "잘못된 JWT 토큰 형식입니다" );
+        } catch( ExpiredJwtException e ) {
+            logger.error( "만료된 JWT 토큰입니다" );
+        } catch( UnsupportedJwtException e ) {
+            logger.error( "지원하지 않는 JWT 토큰입니다" );
+        } catch( IllegalArgumentException e ) {
+            logger.error( "JWT 클레임 문자열이 비어있습니다" );
+        }
+        return false;
+    }
+
 }

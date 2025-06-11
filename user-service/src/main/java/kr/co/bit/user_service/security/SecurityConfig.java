@@ -1,5 +1,6 @@
 package kr.co.bit.user_service.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
@@ -11,11 +12,14 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.HttpStatusReturningLogoutSuccessHandler;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+    @Autowired
+    private JwtAthenticationFilter jwtAthenticationFilter;
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -34,7 +38,8 @@ public class SecurityConfig {
         ).authorizeHttpRequests(
             authz -> authz.requestMatchers( "/user/input", "/user/login", "/user/logout" ).permitAll()
                 .requestMatchers( "/auth/input", "/auth/login", "/auth/logout" ).permitAll()
-                .requestMatchers( "/user/{id}" ).permitAll()
+                // .requestMatchers( "/user/{id}" ).permitAll()
+                .requestMatchers( "/user/{id}" ).hasRole("USER" )
                 .anyRequest().authenticated()
         ).logout(
             logout -> logout.logoutUrl( "/user/logout" )
@@ -42,6 +47,7 @@ public class SecurityConfig {
                 .clearAuthentication( true )
                 .invalidateHttpSession( true )
         );
+        http.addFilterBefore( jwtAthenticationFilter,  UsernamePasswordAuthenticationFilter.class );
         return http.build();
     }
 }

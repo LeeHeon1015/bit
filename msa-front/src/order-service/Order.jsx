@@ -31,6 +31,28 @@ function Order() {
       setErrorMessage("아이디를 입력하세요");
     }
   };
+  const handlerUser = (event) => {
+    const token = localStorage.getItem("jwtToken");
+    axios
+      .get("http://localhost:8080/order", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => console.log("요청 성공"))
+      .catch((error) => setErrorMessage(error.errorMessage));
+  };
+  const handlerAdmin = (event) => {
+    const token = localStorage.getItem("jwtToken");
+    axios
+      .get("http://localhost:8080/admin", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => console.log("요청 성공"))
+      .catch();
+  };
   return (
     <>
       <h3> 제품 구매 </h3>
@@ -41,12 +63,13 @@ function Order() {
             <tr>
               <th> 아이디 </th>
               <td>
+                {" "}
                 <input
                   type="text"
                   name="id"
                   value={formData.id}
                   onChange={handlerChange}
-                />
+                />{" "}
               </td>
             </tr>
             <tr>
@@ -63,16 +86,20 @@ function Order() {
       {userInfo && (
         <div>
           <h4> 구매자 정보 </h4>
-          {userInfo.id && <p> 아이디: {userInfo.id} </p>}
-          {userInfo.passwd && <p> 비밀번호: {userInfo.passwd} </p>}
-          {userInfo.name && <p> 이름: {userInfo.name} </p>}
-          {userInfo.tel && <p> 전화번호: {userInfo.tel} </p>}
-          {userInfo.role && <p> 권한: {userInfo.role} </p>}
+          {userInfo.id && <p> 아이디 : {userInfo.id} </p>}
+          {userInfo.passwd && <p> 비밀번호 : {userInfo.passwd} </p>}
+          {userInfo.name && <p> 이름 : {userInfo.name} </p>}
+          {userInfo.tel && <p> 전화번호 : {userInfo.tel} </p>}
+          {userInfo.role && <p> 아이디 : {userInfo.role} </p>}
         </div>
       )}
+      <br />
+      <br />
       <Link to="/">
         <button>메인</button>
       </Link>
+      <button onClick={handlerUser}> 사용자 </button>
+      <button onClick={handlerAdmin}> 관리자 </button>
     </>
   );
 }
